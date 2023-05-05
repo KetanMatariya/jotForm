@@ -173,43 +173,56 @@
       // #input_3_0 id is for Q1 --> Yes option
       // #input_3_1 id is for Q1 --> No option
       // #id_4 id is for Q2 section
-      $('#input_3_0').click(function () {
-        if ($("#input_3_0").is(":checked")) {
-          $('#id_4').hide();
-          btnCheckEnabling();
-        }
-      })
-      $('#input_3_1').click(function () {
-        if ($("#input_3_1").is(":checked")) {
+      $('#input_3_0, #input_3_1').click(function () {
+        let radio1 = getCheckedValue('input[name="q3_q1Are"]:checked')
+        if(radio1[0] == 'No'){
           $('#id_4').show();
-          btnCheckEnabling();
         }
+        else{
+          $('#id_4').hide();
+        }
+        btnCheckEnabling();
       })
 
       // #input_4_0 id is for Q2 --> Yes option
       // #input_4_1 id is for Q2 --> No option
       // #id_7 id is for Q4 section
       // #id_8 id is for Q5 section
-      $('#input_4_0').click(function () {
-        if ($("#input_4_0").is(":checked")) {
+      $('#input_4_0, #input_4_1').click(function () {
+        let radio2 = getCheckedValue('input[name="q4_q2Are"]:checked')
+        if(radio2[0] == 'Yes'){
           $('#id_7').hide();
           $('#id_8').show();
-          btnCheckEnabling();
-        }
-      })
-      $('#input_4_1').click(function () {
-        if ($("#input_4_1").is(":checked")) {
+        }else{
           $('#id_8').hide();
           $('#id_7').show();
-          btnCheckEnabling();
         }
+        btnCheckEnabling();
       })
 
       // q6_q3I[] name is for Q3 checkbox clicks
       // q7_q4Problems[] name is for Q4 checkbox clicks
       // q8_q5Problems[] name is for Q5 checkbox clicks
       // q9_q6Are[] name is for Q6 checkbox clicks
-      $('input[name="q6_q3I[]"], input[name="q9_q6Are[]"], input[name="q8_q5Problems[]"], input[name="q7_q4Problems[]"]')
+      $('input[name="q6_q3I[]"]')
+        .click(function () {
+          optionChange('input[name="q6_q3I[]"]', '#id_38', 'A');
+          btnCheckEnabling();
+        })
+      $('input[name="q9_q6Are[]"]')
+        .click(function () {
+          optionChange('input[name="q9_q6Are[]"]', '#id_46', 'A');
+          optionChange('input[name="q9_q6Are[]"]', '#id_48', 'B');
+          optionChange('input[name="q9_q6Are[]"]', '#id_49', 'E');
+          btnCheckEnabling();
+        })
+      $('input[name="q7_q4Problems[]"]')
+        .click(function () {
+          optionChange('input[name="q7_q4Problems[]"]', '#id_46', 'G');
+          optionChange('input[name="q7_q4Problems[]"]', '#id_46', 'I');
+          btnCheckEnabling();
+        })
+      $('input[name="q8_q5Problems[]"]')
         .click(function () {
           btnCheckEnabling();
         })
@@ -241,6 +254,21 @@
     }
 
 
+    function optionChange(target, idForChange, optCheck){
+      let options = getCheckedValue(target+':checked')
+      let c =0 ;
+      for(let opt of options){
+        if(opt[0] == optCheck){
+          c=1;
+        }
+      }
+      if(c==1){
+        $(idForChange).show();
+      }else{
+        $(idForChange).hide();
+      }
+    }
+
     // function calls on every click of checkboxes and radio buttons
     // handle the enable and disable property of next button based on condition
     function btnCheckEnabling() {
@@ -250,6 +278,18 @@
       let q6Opt = getCheckedValue('input[name="q9_q6Are[]"]:checked')
       let q4Opt = getCheckedValue('input[name="q7_q4Problems[]"]:checked')
       let q5Opt = getCheckedValue('input[name="q8_q5Problems[]"]:checked')
+      // console.log(q3Opt)
+      // let c =0 ;
+      // for(let opt of q3Opt){
+      //   if(opt[0] == 'A'){
+      //     c=1;
+      //   }
+      // }
+      // if(c==1){
+      //   $('#id_38').show();
+      // }else{
+      //   $('#id_38').hide();
+      // }
       let buttonDisable = (radio1.length == 0) || (radio1[0] == 'Yes' && (q3Opt.length == 0 || q6Opt.length == 0)) || (
         radio1[0] == 'No' && radio2.length == 0) || (radio1[0] == 'No' && radio2[0] == 'Yes' && (q5Opt.length == 0 ||
         q3Opt.length == 0 || q6Opt.length == 0)) || (radio1[0] == 'No' && radio2[0] == 'No' && (q4Opt.length == 0 ||
@@ -260,18 +300,28 @@
     // function calls on next button click
     function onNextClick() {
       console.log("Please check click is happned !");
+      $('#formSection').hide();
+      $('#termSection').show();
+    }
+
+    // function calls on back button click
+    function onBackClick() {
+      console.log("Please check click is happned !");
+      $('#termSection').hide();
+      $('#formSection').show();
     }
   </script>
 
 </head>
 
 <body>
-  <form class="jotform-form" action="https://submit.jotform.com/submit/231072290340040" method="post"
-    name="form_231072290340040" id="231072290340040" accept-charset="utf-8" autocomplete="on">
+  <!-- <form class="jotform-form" action="https://submit.jotform.com/submit/231072290340040" method="post"
+    name="form_231072290340040" id="231072290340040" accept-charset="utf-8" autocomplete="on"> -->
+  <form class="jotform-form" >
     <input type="hidden" name="formID" value="231072290340040" /><input type="hidden" id="JWTContainer"
       value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
     <div role="main" class="form-all">
-      <ul class="form-section page-section">
+      <ul class="form-section page-section" id="formSection">
         <li id="cid_1" class="form-input-wide" data-type="control_head">
           <div class="form-header-group  header-large">
             <div class="header-text httal htvam">
@@ -365,10 +415,10 @@
                   for="input_7_5">F. Injury (e.g., workplace accident, traffic accident)</label></span><span
                 class="form-checkbox-item" style="clear:left"><span class="dragger-item"></span><input type="checkbox"
                   aria-describedby="label_7" class="form-checkbox" id="input_7_6" name="q7_q4Problems[]"
-                  value="G. Harrasment (e.g. shouting, stalking, threats, throwing things)" /><label
-                  id="label_input_7_6" for="input_7_6">G. Harrasment (e.g. shouting, stalking, threats, throwing
+                   id="label_input_7_6" for="input_7_6">G. Harrasment (e.g. shouting, stalking, threats, throwing
                   things)</label></span><span class="form-checkbox-item" style="clear:left"><span
-                  class="dragger-item"></span><input type="checkbox" aria-describedby="label_7" class="form-checkbox"
+                  value="G. Harrasment (e.g. shouting, stalking, threats, throwing things)" /><label
+                 class="dragger-item"></span><input type="checkbox" aria-describedby="label_7" class="form-checkbox"
                   id="input_7_7" name="q7_q4Problems[]" value="H. Neighbour problems" /><label id="label_input_7_7"
                   for="input_7_7">H. Neighbour problems</label></span><span class="form-checkbox-item"
                 style="clear:left"><span class="dragger-item"></span><input type="checkbox" aria-describedby="label_7"
@@ -804,14 +854,14 @@
             <div class="form-pagebreak-back-container" style="display: none;"><button id="form-pagebreak-back_20"
                 type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">Back</button>
             </div>
-            <div class="form-pagebreak-next-container"><button id="form-pagebreak-next_20" type="submit"
+            <div class="form-pagebreak-next-container"><button id="form-pagebreak-next_20"
                 class="form-pagebreak-next  jf-form-buttons" data-component="pagebreak-next"
                 onclick="onNextClick()">Next</button></div>
             <div style="clear:both" class="pageInfo form-sub-label" id="pageInfo_20"></div>
           </div>
         </li>
       </ul>
-      <ul class="form-section page-section" style="display:none;">
+      <ul class="form-section page-section" id="termSection" >
         <li class="form-line form-field-hidden" style="display:none;" data-type="control_text" id="id_46">
           <div id="cid_46" class="form-input-wide" data-layout="full">
             <div id="text_46" class="form-html" data-component="text" tabindex="0">
@@ -1130,7 +1180,10 @@
         </li>
         <li class="form-line" data-type="control_button" id="id_2">
           <div id="cid_2" class="form-input-wide" data-layout="full">
-            <div data-align="auto" class="form-buttons-wrapper form-buttons-auto   jsTest-button-wrapperField"><button
+            <div data-align="auto" class="form-buttons-wrapper form-buttons-auto   jsTest-button-wrapperField">
+              <button id="form-pagebreak-back_20"
+              type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back" onclick="onBackClick()">Back</button>
+              <button
                 id="input_2" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField"
                 data-component="button" data-content="">Submit</button></div>
           </div>
@@ -1145,12 +1198,12 @@
       JotForm.poweredByText = "Powered by Jotform";
     </script> -->
     <input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="231072290340040" />
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
       var all_spc = document.querySelectorAll("form[id='231072290340040'] .si" + "mple" + "_spc");
       for (var i = 0; i < all_spc.length; i++) {
         all_spc[i].value = "231072290340040-231072290340040";
       }
-    </script>
+    </script> -->
 
   </form>
 </body>
