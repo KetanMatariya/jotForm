@@ -19,6 +19,17 @@
       color: #fff;
       cursor: not-allowed;
     }
+    a:hover{
+      color: #fff;
+      text-decoration: none;
+    }
+    a.disabled {
+      border: none;
+      background-color: rgba(0, 128, 255, 0.5);
+      color: #fff;
+      cursor: not-allowed;
+      pointer-events: none;
+}
 
     .form-pagebreak {
       display: flex;
@@ -168,7 +179,8 @@
     $(document).ready(function () {
       btnCheckEnabling();
       // #form-pagebreak-next_20 id is for next button
-      $('#form-pagebreak-next_20').prop('disabled', true);
+      $('#form-pagebreak-next_20').toggleClass('disabled', true);
+
 
       // #input_3_0 id is for Q1 --> Yes option
       // #input_3_1 id is for Q1 --> No option
@@ -294,7 +306,7 @@
         radio1[0] == 'No' && radio2.length == 0) || (radio1[0] == 'No' && radio2[0] == 'Yes' && (q5Opt.length == 0 ||
         q3Opt.length == 0 || q6Opt.length == 0)) || (radio1[0] == 'No' && radio2[0] == 'No' && (q4Opt.length == 0 ||
         q3Opt.length == 0 || q6Opt.length == 0));
-      $('#form-pagebreak-next_20').prop('disabled', buttonDisable);
+          $('#form-pagebreak-next_20').toggleClass('disabled', buttonDisable);
     }
 
     // function calls on next button click
@@ -315,9 +327,8 @@
 </head>
 
 <body>
-  <!-- <form class="jotform-form" action="https://submit.jotform.com/submit/231072290340040" method="post"
-    name="form_231072290340040" id="231072290340040" accept-charset="utf-8" autocomplete="on"> -->
-  <form class="jotform-form" >
+  <form class="jotform-form" action="https://submit.jotform.com/submit/231072290340040" method="post"
+    name="form_231072290340040" id="231072290340040" accept-charset="utf-8" autocomplete="on">
     <input type="hidden" name="formID" value="231072290340040" /><input type="hidden" id="JWTContainer"
       value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
     <div role="main" class="form-all">
@@ -376,7 +387,7 @@
                 style="clear:left"><input type="checkbox" class="form-checkbox-other form-checkbox" id="other_6"
                   value="other" tabindex="0" aria-label="Other" /><label id="label_other_6" style="text-indent:0"
                   for="other_6">Other</label><span id="other_6_input" class="other-input-container"
-                  style="display:none"><input type="text" class="form-checkbox-other-input form-textbox" name="q6_q3I[]"
+                  style="display:none"><input type="text" class="form-checkbox-other-input form-textbox" name="q6_q3I[other]"
                     data-otherhint="Other" size="15" id="input_6" data-placeholder="Please type another option here"
                     placeholder="Please type another option here" /></span></span></div>
           </div>
@@ -854,14 +865,17 @@
             <div class="form-pagebreak-back-container" style="display: none;"><button id="form-pagebreak-back_20"
                 type="button" class="form-pagebreak-back  jf-form-buttons" data-component="pagebreak-back">Back</button>
             </div>
-            <div class="form-pagebreak-next-container"><button id="form-pagebreak-next_20"
-                class="form-pagebreak-next  jf-form-buttons" data-component="pagebreak-next"
-                onclick="onNextClick()">Next</button></div>
+            <div class="form-pagebreak-next-container">
+              <a id="form-pagebreak-next_20" type="button"
+                class="form-pagebreak-next jf-form-buttons" data-component="pagebreak-next"
+                onclick="onNextClick()">Next
+            </a>
+              </div>
             <div style="clear:both" class="pageInfo form-sub-label" id="pageInfo_20"></div>
           </div>
         </li>
       </ul>
-      <ul class="form-section page-section" id="termSection" >
+      <ul class="form-section page-section" id="termSection" style="display: none;">
         <li class="form-line form-field-hidden" style="display:none;" data-type="control_text" id="id_46">
           <div id="cid_46" class="form-input-wide" data-layout="full">
             <div id="text_46" class="form-html" data-component="text" tabindex="0">
