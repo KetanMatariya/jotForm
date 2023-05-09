@@ -221,6 +221,21 @@
           optionChange('input[name="q6_q3I[]"]', '#id_38', 'A');
           btnCheckEnabling();
         })
+      $('input[name="q12_q9Have"]')
+        .click(function () {
+        let radio = getCheckedValue('input[name="q12_q9Have"]:checked')
+        if(radio[0] == 'Yes'){
+          $('#id_24').hide();
+          $('#id_13').show();
+          $('#id_14').show();
+        }else{
+          $('#id_24').show();
+          $('#id_13').hide();
+          $('#id_14').hide();
+        }
+          btnCheckEnabling();
+        })
+
       $('input[name="q9_q6Are[]"]')
         .click(function () {
           optionChange('input[name="q9_q6Are[]"]', '#id_46', 'A');
@@ -290,6 +305,32 @@
       let q6Opt = getCheckedValue('input[name="q9_q6Are[]"]:checked')
       let q4Opt = getCheckedValue('input[name="q7_q4Problems[]"]:checked')
       let q5Opt = getCheckedValue('input[name="q8_q5Problems[]"]:checked')
+      let c3 =0 ;
+      for(let opt of q3Opt){
+        if(opt[0] == 'B'){
+          c3=1;
+        }
+      }
+      let c4 =0 ;
+      for(let opt of q4Opt){
+        if(opt[0] == 'B'){
+          c4=1;
+        }
+      }
+      if(radio1[0] == "No" && radio2[0] == "No" && c3===1 && c4 ===1){
+        $('#id_27').show();
+        $('#id_12').show();
+        // $('#id_10').show();
+        $('#id_37').show();
+      }else{
+        $('#id_27').hide();
+        $('#id_12').hide();
+        // $('#id_10').hide();
+        $('#id_37').hide();
+
+      }
+
+
       // console.log(q3Opt)
       // let c =0 ;
       // for(let opt of q3Opt){
